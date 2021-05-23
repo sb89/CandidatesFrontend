@@ -6,6 +6,16 @@ const GetSkillsForCandidateRequestAsync = async (id) => {
   return response.data;
 };
 
+const AddSkillToCandidateRequestAsync = async (candidateId, skillId) => {
+  var data = {
+    candidateId: candidateId, 
+    skillId: skillId
+  };
+
+  await APIKit.post(`/candidates/${candidateId}/skills`, data);
+};
+
 export {
-  GetSkillsForCandidateRequestAsync
+  GetSkillsForCandidateRequestAsync,
+  AddSkillToCandidateRequestAsync
 };
