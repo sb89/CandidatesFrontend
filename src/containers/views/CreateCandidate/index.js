@@ -35,7 +35,7 @@ const CreateCandidateScreen = () => {
           <Formik
             initialValues={{
               firstName: "", surname: "", address1: "", town: "", postCode: "", country: "",
-              phoneHome: "", phoneMobile: "", phoneWork: ""
+              phoneHome: "", phoneMobile: "", phoneWork: "", dateOfBirth: ""
             }}
             validationSchema={validationSchema}
             onSubmit={submitAsync}
@@ -49,6 +49,12 @@ const CreateCandidateScreen = () => {
 
                   <Col md={6}>
                     <FormGroup type="text" name="surname" label="Surname" formikProps={props} />
+                  </Col>
+                </Form.Row>
+
+                <Form.Row>
+                  <Col md={6}>
+                    <FormGroup type="date" name="dateOfBirth" label="Date Of Birth" formikProps={props} />
                   </Col>
                 </Form.Row>
 

@@ -8,10 +8,11 @@ const GetCandidatesAsync = async () => {
 
 const CreateCandidateAsync = async (values) => {
   const dob = Date.parse(values.dateOfBirth);
+  const dobEpoch = Math.round(dob / 1000);
 
-  values.dateOfBirth = 999999;
+  const data = { ...values, dateOfBirth: dobEpoch }
 
-  await CreateCandidateRequestAsync(values);
+  await CreateCandidateRequestAsync(data);
 }
 
 export {
