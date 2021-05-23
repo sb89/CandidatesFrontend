@@ -15,7 +15,12 @@ const AddSkillToCandidateRequestAsync = async (candidateId, skillId) => {
   await APIKit.post(`/candidates/${candidateId}/skills`, data);
 };
 
+const RemoveSkillFromCandidateRequestAsync = async (candidateId, skillId) => {
+  await APIKit.delete(`/candidates/${candidateId}/skills/${skillId}`);
+}
+
 export {
   GetSkillsForCandidateRequestAsync,
-  AddSkillToCandidateRequestAsync
+  AddSkillToCandidateRequestAsync,
+  RemoveSkillFromCandidateRequestAsync
 };

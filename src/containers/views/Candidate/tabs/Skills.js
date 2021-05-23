@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row, Spinner, Table } from 'react-bootstrap';
 import Select from 'react-select';
 import { AddSkillToCandidateRequestAsync } from '../../../../api/CandidateSkillsAPI';
-import { GetSkillsForCandidateAsync } from '../../../../services/CandidateSkillService';
+import { GetSkillsForCandidateAsync, RemoveSkillFromCandidateAsync } from '../../../../services/CandidateSkillService';
 import { GetSkillsAsync } from '../../../../services/SkllService';
 
 const SkillsTab = ({ candidateId }) => {
@@ -50,6 +50,18 @@ const SkillsTab = ({ candidateId }) => {
     setSelectedSkill(null);
   }
 
+  const removeSkill = async (id) => {
+    setCandidateSkills(
+      candidateSkills.filter(x => x.id != id)
+    );
+
+    setSaving(true);
+
+    await RemoveSkillFromCandidateAsync(candidateId, id);
+    
+    setSaving(false);
+  };
+
   if (loading) {
     return (
       <Container className="main-container">
@@ -91,11 +103,13 @@ const SkillsTab = ({ candidateId }) => {
           </tr>
         </thead>
         <tbody>
-          {candidateSkills.map((x) => {
+          {candidateSkills.map((x, i) => {
             return (
-              <tr>
+              <tr key={i}>
                 <td>{x.name}</td>
-                <td></td>
+                <td>
+                  <Button size="sm" variant="danger" onClick={() => removeSkill(x.id)}>Remove</Button>
+                </td>
               </tr>
             );
           })}

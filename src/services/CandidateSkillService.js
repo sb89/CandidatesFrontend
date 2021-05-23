@@ -1,4 +1,4 @@
-import { AddSkillToCandidateRequestAsync, GetSkillsForCandidateRequestAsync } from "../api/CandidateSkillsAPI";
+import { AddSkillToCandidateRequestAsync, GetSkillsForCandidateRequestAsync, RemoveSkillFromCandidateRequestAsync } from "../api/CandidateSkillsAPI";
 
 const GetSkillsForCandidateAsync = async (id) => {
   const data = await GetSkillsForCandidateRequestAsync(id);
@@ -10,7 +10,12 @@ const AddSkillToCandidateAsync = async (candidateId, skillId) => {
   await AddSkillToCandidateRequestAsync(candidateId, skillId);
 }
 
+const RemoveSkillFromCandidateAsync = async (candidateId, skillId) => {
+  await RemoveSkillFromCandidateRequestAsync(candidateId, skillId);
+};
+
 export {
   GetSkillsForCandidateAsync,
-  AddSkillToCandidateAsync
+  AddSkillToCandidateAsync,
+  RemoveSkillFromCandidateAsync
 }
