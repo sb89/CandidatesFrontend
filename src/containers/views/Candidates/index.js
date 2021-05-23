@@ -51,8 +51,8 @@ const CandidatesScreen = () => {
   }
 
   return (
-    <Container className="main-container">
-      <Button variant="success" className="mt-5" onClick={() => history.push('/create-candidate')}>
+    <Container>
+      <Button variant="success" onClick={() => history.push('/create-candidate')}>
         Create Candidate
       </Button>
 
