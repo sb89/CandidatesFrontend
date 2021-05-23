@@ -41,38 +41,54 @@ const SkillsTab = ({ candidateId }) => {
   }, [candidateId]);
 
   const addSkill = async () => {
-    FlashMessageService.reset();
     if(selectedSkill === null) return;
+
+    FlashMessageService.reset();
 
     const hasSkill = candidateSkills.some(x => x.id === selectedSkill.value);
 
-    if(!hasSkill) {
-      setCandidateSkills([...candidateSkills, {name: selectedSkill.label, id: selectedSkill.value}]);
-
-      setSaving(true);
-      await AddSkillToCandidateRequestAsync(candidateId, selectedSkill.value);
-      setSaving(false);
-    }
-  
     setSelectedSkill(null);
 
-    FlashMessageService.setSuccess("Successfully added skill");
+    if(hasSkill) {
+      return;
+    } 
+
+    try {
+
+      setSaving(true);
+
+      await AddSkillToCandidateRequestAsync(candidateId, selectedSkill.value);
+
+      setCandidateSkills([...candidateSkills, {name: selectedSkill.label, id: selectedSkill.value}]);
+      
+      FlashMessageService.setSuccess("Successfully added skill");
+    } catch {
+      FlashMessageService.setError("An unexpected error has occurred. Please try again later.");
+    } finally {
+      setSaving(false);
+    }
+    
   }
 
   const removeSkill = async (id) => {
     FlashMessageService.reset();
 
-    setCandidateSkills(
-      candidateSkills.filter(x => x.id !== id)
-    );
+    try {
+      setSaving(true);
 
-    setSaving(true);
+      await RemoveSkillFromCandidateAsync(candidateId, id);
 
-    await RemoveSkillFromCandidateAsync(candidateId, id);
-    
-    setSaving(false);
+      setCandidateSkills(
+        candidateSkills.filter(x => x.id !== id)
+      );
+  
+      FlashMessageService.setSuccess("Successfully removed skill");
+    } catch {
+      FlashMessageService.setError("An unexpected error has occurred. Please try again later.");
+    } finally {
+      setSaving(false);
+    }
 
-    FlashMessageService.setSuccess("Successfully removed skill");
   };
 
   if (loading) {
