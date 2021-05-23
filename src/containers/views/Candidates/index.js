@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container } from "react-bootstrap"
+import { Container, Spinner } from "react-bootstrap"
 import DataTable from 'react-data-table-component';
 import { useHistory } from "react-router";
 import { GetCandidatesAsync } from "../../../services/CandidateService";
@@ -8,12 +8,14 @@ import { GetCandidatesAsync } from "../../../services/CandidateService";
 const CandidatesScreen = () => {
   const history = useHistory();
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
       var candidates = await GetCandidatesAsync();
 
       setData(candidates);
+      setLoading(false);
     };
 
     fetch();
@@ -28,6 +30,17 @@ const CandidatesScreen = () => {
 
   const rowClicked = (e) => {
     history.push(`/candidates/${e.id}`)
+  }
+
+  if(loading) {
+    return (
+      <Container className="main-container">
+        <div className="d-flex justify-content-center ">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      </Container>
+      
+    );
   }
 
   return (
