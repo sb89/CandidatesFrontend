@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { GetCandidateRequestAsync } from "../../../../api/CandidateAPI";
 
-const DetailsTab = () => {
+const DetailsTab = ({ candidateId }) => {
   const [candidate, setCandidate] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
-      var data = await GetCandidateRequestAsync(3);
+      var data = await GetCandidateRequestAsync(candidateId);
       
       setCandidate(data);
       setLoading(false);
