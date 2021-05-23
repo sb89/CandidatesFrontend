@@ -9,6 +9,7 @@ import Main from './containers/layouts/Main';
 import Home from './containers/views/Home';
 import CandidatesScreen from './containers/views/Candidates';
 import CandidateScreen from './containers/views/Candidate';
+import CreateCandidateScreen from './containers/views/CreateCandidate';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/' exact component={Home}/>
           <Route path='/candidates' exact component={CandidatesScreen}/>
           <Route path='/candidates/:id' exact component={CandidateScreen}/>
+          <Route path='/create-candidate' exact component={CreateCandidateScreen}/>
         </Main>
       </Switch>
     </Router>

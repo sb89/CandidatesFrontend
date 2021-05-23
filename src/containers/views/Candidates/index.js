@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Spinner } from "react-bootstrap"
+import { Button, Container, Spinner } from "react-bootstrap"
 import DataTable from 'react-data-table-component';
 import { useHistory } from "react-router";
 import { GetCandidatesAsync } from "../../../services/CandidateService";
@@ -46,6 +46,10 @@ const CandidatesScreen = () => {
   return (
     <Container className="main-container">
       <h1>Candidates</h1>
+
+      <Button variant="primary" className="mt-5" onClick={() => history.push('/create-candidate')}>
+        Create Candidate
+      </Button>
 
       <DataTable
         columns={columns}
