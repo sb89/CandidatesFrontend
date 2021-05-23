@@ -8,6 +8,7 @@ import FormGroup from "../../../components/Forms/formGroup";
 import { CreateCandidateAsync } from "../../../services/CandidateService";
 import { useHistory } from "react-router";
 import FlashMessageService from "../../../util/FlashMessageService";
+import { PushWithSuccess } from "../../../util/HistoryUtil";
 
 const CreateCandidateScreen = () => {
   const history = useHistory();
@@ -29,7 +30,7 @@ const CreateCandidateScreen = () => {
     try {
       await CreateCandidateAsync(values);
 
-      history.push("/candidates");
+      PushWithSuccess(history, "/candidates", "Successfully added candidate");
     } catch {
       FlashMessageService.setError("An unexpected error has occurred. Please try again later.");
     }
