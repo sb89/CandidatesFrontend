@@ -16,8 +16,13 @@ const CreateCandidateRequestAsync = async (values) => {
   await APIKit.post('/candidates', values);
 }
 
+const UpdateCandidateRequestAsync = async (candidate) => {
+  await APIKit.post(`/candidates/${candidate.id}`, candidate);
+}
+
 export {
   GetCandidatesRequestAsync,
   CreateCandidateRequestAsync,
-  GetCandidateRequestAsync
+  GetCandidateRequestAsync,
+  UpdateCandidateRequestAsync
 }
