@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Main from './containers/layouts/Main';
 import Home from './containers/views/Home';
+import CandidatesScreen from './containers/views/Candidates';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Switch>
         <Main>
           <Route path='/' exact component={Home}/>
+          <Route path='/candidates' exact component={CandidatesScreen}/>
         </Main>
       </Switch>
     </Router>
