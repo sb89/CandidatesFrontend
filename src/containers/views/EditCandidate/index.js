@@ -19,12 +19,17 @@ const EditCandidateScreen = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const candidateData = await GetCandidateAsync(id);
-      candidateData.dateOfBirth = new Date(candidateData.dateOfBirth * 1000).toISOString().split('T')[0];
-
-      setCandidate(candidateData);
-
-      setLoading(false);
+      try {
+        const candidateData = await GetCandidateAsync(id);
+        candidateData.dateOfBirth = new Date(candidateData.dateOfBirth * 1000).toISOString().split('T')[0];
+  
+        setCandidate(candidateData);
+      } catch {
+        FlashMessageService.setError("An unexpected error has occurred. PLease try again later.");
+      } finally {
+        setLoading(false);
+      }
+      
     };
 
     fetch();
@@ -36,9 +41,14 @@ const EditCandidateScreen = () => {
 
     setCandidate(newCandidate);
 
-    await UpdateCandidateAsync(newCandidate);
+    try {
+      await UpdateCandidateAsync(newCandidate);
 
-    FlashMessageService.setSuccess("Successfully updated candidate");
+      FlashMessageService.setSuccess("Successfully updated candidate");
+    } catch {
+      FlashMessageService.setError("An unexpected error has occurred. Please try again later.");
+    }
+
   };
 
   if(loading) {
