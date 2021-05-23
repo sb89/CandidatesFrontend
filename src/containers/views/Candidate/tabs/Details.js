@@ -51,7 +51,7 @@ const DetailsTab = ({ candidateId }) => {
 
         <Col md={6}>
           <dt>Surname</dt>
-          <dd>{candidate.firstName}</dd>
+          <dd>{candidate.surname}</dd>
         </Col>
       </Row>
 
