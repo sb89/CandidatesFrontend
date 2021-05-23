@@ -7,6 +7,7 @@ import { GetCandidateAsync, UpdateCandidateAsync } from "../../../services/Candi
 
 import * as Yup from 'yup';
 import {  } from "../../../api/CandidateAPI";
+import FlashMessageService from "../../../util/FlashMessageService";
 
 
 const EditCandidateScreen = () => {
@@ -30,11 +31,14 @@ const EditCandidateScreen = () => {
   }, [id]);
 
   const submitAsync = async (values, { setSubmitting }) => {
+    FlashMessageService.reset();
     const newCandidate = Object.assign(candidate, values);
 
     setCandidate(newCandidate);
 
     await UpdateCandidateAsync(newCandidate);
+
+    FlashMessageService.setSuccess("Successfully updated candidate");
   };
 
   if(loading) {

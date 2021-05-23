@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { AddSkillToCandidateRequestAsync } from '../../../../api/CandidateSkillsAPI';
 import { GetSkillsForCandidateAsync, RemoveSkillFromCandidateAsync } from '../../../../services/CandidateSkillService';
 import { GetSkillsAsync } from '../../../../services/SkllService';
+import FlashMessageService from '../../../../util/FlashMessageService';
 
 const SkillsTab = ({ candidateId }) => {
   const [selectableSkills, setSelectableSkills] = useState([]);
@@ -35,6 +36,7 @@ const SkillsTab = ({ candidateId }) => {
   }, [candidateId]);
 
   const addSkill = async () => {
+    FlashMessageService.reset();
     if(selectedSkill === null) return;
 
     const hasSkill = candidateSkills.some(x => x.id === selectedSkill.value);
@@ -48,9 +50,13 @@ const SkillsTab = ({ candidateId }) => {
     }
   
     setSelectedSkill(null);
+
+    FlashMessageService.setSuccess("Successfully added skill");
   }
 
   const removeSkill = async (id) => {
+    FlashMessageService.reset();
+
     setCandidateSkills(
       candidateSkills.filter(x => x.id !== id)
     );
@@ -60,6 +66,8 @@ const SkillsTab = ({ candidateId }) => {
     await RemoveSkillFromCandidateAsync(candidateId, id);
     
     setSaving(false);
+
+    FlashMessageService.setSuccess("Successfully removed skill");
   };
 
   if (loading) {

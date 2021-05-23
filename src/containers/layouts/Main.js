@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import FlashMessage from "../../components/FlashMessage";
 
 
 const Main = ({ children }) => {
@@ -25,6 +26,10 @@ const Main = ({ children }) => {
 
         </Container>
       </Navbar>
+      <Container>
+        <FlashMessage />
+      </Container>
+
       <div>
         {children}
       </div>
