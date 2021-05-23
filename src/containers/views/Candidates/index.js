@@ -3,6 +3,7 @@ import { Button, Container, Spinner } from "react-bootstrap"
 import DataTable from 'react-data-table-component';
 import { useHistory } from "react-router";
 import { GetCandidatesAsync } from "../../../services/CandidateService";
+import FlashMessageService from "../../../util/FlashMessageService";
 
 
 const CandidatesScreen = () => {
@@ -12,10 +13,16 @@ const CandidatesScreen = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      var candidates = await GetCandidatesAsync();
+      try {
+        const candidates = await GetCandidatesAsync();
 
-      setData(candidates);
-      setLoading(false);
+        setData(candidates);
+      } catch {
+        FlashMessageService.setError("An unexpected error has occurred. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+
     };
 
     fetch();

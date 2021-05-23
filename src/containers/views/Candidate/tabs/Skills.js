@@ -16,20 +16,25 @@ const SkillsTab = ({ candidateId }) => {
   useEffect(() => {
     const fetch = async () => {
 
-      const [skillsData, candidateSkillsData] = await Promise.all(
-        [GetSkillsAsync(), GetSkillsForCandidateAsync(candidateId)]
-      );
+      try {
+        const [skillsData, candidateSkillsData] = await Promise.all(
+          [GetSkillsAsync(), GetSkillsForCandidateAsync(candidateId)]
+        );
+  
+        setCandidateSkills(candidateSkillsData);
+  
+        setSelectableSkills(
+          skillsData.map((x) => ({
+            value: x.id,
+            label: x.name
+          }))
+        )
+      } catch {
+        FlashMessageService.setError("An unexpected error has occurred. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
 
-      setCandidateSkills(candidateSkillsData);
-
-      setSelectableSkills(
-        skillsData.map((x) => ({
-          value: x.id,
-          label: x.name
-        }))
-      )
-
-      setLoading(false);
     };
 
     fetch();

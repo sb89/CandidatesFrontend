@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { GetCandidateRequestAsync } from "../../../../api/CandidateAPI";
+import FlashMessageService from "../../../../util/FlashMessageService";
 
 const DetailsTab = ({ candidateId }) => {
   const history = useHistory();
@@ -10,10 +11,16 @@ const DetailsTab = ({ candidateId }) => {
 
   useEffect(() => {
     const fetch = async () => {
-      var data = await GetCandidateRequestAsync(candidateId);
+      try {
+        const data = await GetCandidateRequestAsync(candidateId);
       
-      setCandidate(data);
-      setLoading(false);
+        setCandidate(data);
+      } catch {
+        FlashMessageService.setError("An unexpected error has occurred. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+      
     };
 
     fetch();
