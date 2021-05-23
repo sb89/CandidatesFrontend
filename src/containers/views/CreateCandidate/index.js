@@ -39,7 +39,10 @@ const CreateCandidateScreen = () => {
 
   return (
     <Container className="main-container">
-      <Card>
+
+      <Button onClick={() => history.push('/candidates')}>Back to candidates</Button>
+
+      <Card className="mt-1">
         <Card.Body>
           <Formik
             initialValues={{

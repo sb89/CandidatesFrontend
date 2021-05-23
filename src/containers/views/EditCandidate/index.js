@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Form, Spinner } from "react-bootstrap";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import FormGroup from "../../../components/Forms/formGroup";
 import { GetCandidateAsync, UpdateCandidateAsync } from "../../../services/CandidateService";
 
@@ -12,10 +12,10 @@ import FlashMessageService from "../../../util/FlashMessageService";
 
 const EditCandidateScreen = () => {
   const { id } = useParams();
+  const history = useHistory();
 
   const [loading, setLoading] = useState(true);
   const [candidate, setCandidate] = useState(null);
-
 
   useEffect(() => {
     const fetch = async () => {
@@ -81,7 +81,9 @@ const EditCandidateScreen = () => {
 
   return (
     <Container className="main-container">
-      <Card>
+      <Button onClick={() => history.push(`/candidates/${id}`)}>Back to candidate</Button>
+
+      <Card className="mt-1">
         <Card.Body>
           <Formik
             initialValues={{
