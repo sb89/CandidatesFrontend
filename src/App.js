@@ -10,6 +10,7 @@ import Home from './containers/views/Home';
 import CandidatesScreen from './containers/views/Candidates';
 import CandidateScreen from './containers/views/Candidate';
 import CreateCandidateScreen from './containers/views/CreateCandidate';
+import EditCandidateScreen from './containers/views/EditCandidate';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path='/candidates' exact component={CandidatesScreen}/>
           <Route path='/candidates/:id' exact component={CandidateScreen}/>
           <Route path='/create-candidate' exact component={CreateCandidateScreen}/>
+          <Route path='/candidates/:id/edit' exact component={EditCandidateScreen}/>
         </Main>
       </Switch>
     </Router>

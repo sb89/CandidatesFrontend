@@ -32,7 +32,7 @@ const SkillsTab = ({ candidateId }) => {
     };
 
     fetch();
-  }, []);
+  }, [candidateId]);
 
   const addSkill = async () => {
     if(selectedSkill === null) return;
@@ -52,7 +52,7 @@ const SkillsTab = ({ candidateId }) => {
 
   const removeSkill = async (id) => {
     setCandidateSkills(
-      candidateSkills.filter(x => x.id != id)
+      candidateSkills.filter(x => x.id !== id)
     );
 
     setSaving(true);

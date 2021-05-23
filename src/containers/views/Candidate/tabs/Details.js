@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
+import { useHistory } from "react-router";
 import { GetCandidateRequestAsync } from "../../../../api/CandidateAPI";
 
 const DetailsTab = ({ candidateId }) => {
+  const history = useHistory();
   const [candidate, setCandidate] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -15,7 +17,7 @@ const DetailsTab = ({ candidateId }) => {
     };
 
     fetch();
-  }, []);
+  }, [candidateId]);
 
   if(loading) {
     return (
@@ -96,6 +98,7 @@ const DetailsTab = ({ candidateId }) => {
         </Col>
       </Row>
 
+      <Button variant="success" onClick={() => history.push(`/candidates/${candidateId}/edit`)}>Edit</Button>
 
     </div>
   )
