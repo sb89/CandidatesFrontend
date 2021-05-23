@@ -1,25 +1,33 @@
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap"
 import DataTable from 'react-data-table-component';
 import { useHistory } from "react-router";
+import { GetCandidatesAsync } from "../../../services/CandidateService";
 
 
 const CandidatesScreen = () => {
   const history = useHistory();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      var candidates = await GetCandidatesAsync();
+
+      setData(candidates);
+    };
+
+    fetch();
+  }, []);
 
   const columns = [
-    {name: 'First Name', selector: 'FirstName', sortable: true},
-    {name: 'Surname', selector: 'Surname', sortable: true},
-    {name: 'Town', selector: 'Town', sortable: true},
-    {name: 'Country', selector: 'Country', sortable: true},
-  ];
-
-  const data = [
-    {Id: 1, FirstName: 'Steven', Surname: 'Blake', Town: 'Arbroath', Country: 'Scotland'},
-    {Id: 2, FirstName: 'Darren', Surname: 'Blake', Town: 'Montrose', Country: 'Scotland'}
+    {name: 'First Name', selector: 'firstName', sortable: true},
+    {name: 'Surname', selector: 'surname', sortable: true},
+    {name: 'Town', selector: 'town', sortable: true},
+    {name: 'Country', selector: 'country', sortable: true},
   ];
 
   const rowClicked = (e) => {
-    history.push(`/candidates/${e.Id}`)
+    history.push(`/candidates/${e.id}`)
   }
 
   return (
@@ -31,6 +39,7 @@ const CandidatesScreen = () => {
         data={data}
         highlightOnHover
         pointerOnHover
+        pagination
         onRowClicked={rowClicked}
       />
     </Container>
