@@ -8,6 +8,7 @@ import {
 import Main from './containers/layouts/Main';
 import Home from './containers/views/Home';
 import CandidatesScreen from './containers/views/Candidates';
+import CandidateScreen from './containers/views/Candidate';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Main>
           <Route path='/' exact component={Home}/>
           <Route path='/candidates' exact component={CandidatesScreen}/>
+          <Route path='/candidates/:id' exact component={CandidateScreen}/>
         </Main>
       </Switch>
     </Router>
