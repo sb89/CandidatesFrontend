@@ -7,6 +7,7 @@ import { Card, Col, Container, Form, Button, Spinner } from "react-bootstrap";
 import FormGroup from "../../../components/Forms/formGroup";
 import { CreateCandidateAsync } from "../../../services/CandidateService";
 import { useHistory } from "react-router";
+import FlashMessageService from "../../../util/FlashMessageService";
 
 const CreateCandidateScreen = () => {
   const history = useHistory();
@@ -25,9 +26,14 @@ const CreateCandidateScreen = () => {
   });
 
   const submitAsync = async (values, { setSubmitting }) => {
-    await CreateCandidateAsync(values);
+    try {
+      await CreateCandidateAsync(values);
 
-    history.push("/candidates");
+      history.push("/candidates");
+    } catch {
+      FlashMessageService.setError("An unexpected error has occurred. Please try again later.");
+    }
+
   };
 
   return (
