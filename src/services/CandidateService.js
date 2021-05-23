@@ -1,9 +1,15 @@
-import { CreateCandidateRequestAsync, GetCandidatesRequestAsync } from "../api/CandidateAPI";
+import { CreateCandidateRequestAsync, GetCandidateRequestAsync, GetCandidatesRequestAsync } from "../api/CandidateAPI";
 
 const GetCandidatesAsync = async () => {
-  var data = await GetCandidatesRequestAsync();
+  const data = await GetCandidatesRequestAsync();
 
   return data.candidates;
+};
+
+const GetCandidateAsync = async (id) => {
+  const data = await GetCandidateRequestAsync(id);
+
+  return data;
 };
 
 const CreateCandidateAsync = async (values) => {
@@ -17,5 +23,6 @@ const CreateCandidateAsync = async (values) => {
 
 export {
   GetCandidatesAsync,
-  CreateCandidateAsync
+  CreateCandidateAsync,
+  GetCandidateAsync
 };

@@ -6,8 +6,10 @@ import { Formik } from "formik";
 import { Card, Col, Container, Form, Button, Spinner } from "react-bootstrap";
 import FormGroup from "../../../components/Forms/formGroup";
 import { CreateCandidateAsync } from "../../../services/CandidateService";
+import { useHistory } from "react-router";
 
 const CreateCandidateScreen = () => {
+  const history = useHistory();
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
@@ -23,9 +25,9 @@ const CreateCandidateScreen = () => {
   });
 
   const submitAsync = async (values, { setSubmitting }) => {
-    console.log(values);
-
     await CreateCandidateAsync(values);
+
+    history.push("/candidates");
   };
 
   return (
